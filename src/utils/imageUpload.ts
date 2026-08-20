@@ -1,3 +1,5 @@
+import { APP_IMAGES } from '../data/assets';
+
 export interface PresetGalleryImage {
   id: string;
   name: string;
@@ -10,42 +12,42 @@ export const PRESET_STUDIO_GALLERY: PresetGalleryImage[] = [
   {
     id: 'preset-1',
     name: '8K Aerial Cinema Rig',
-    url: '/src/assets/images/sirin_hero_cinematic_1787143442924.jpg',
+    url: APP_IMAGES.heroCinematic,
     category: 'DRONE',
     description: 'High-altitude aerial capture at twilight with custom anamorphic flare.',
   },
   {
     id: 'preset-2',
     name: 'SIRIN SKY 3D Drone Swarm',
-    url: '/src/assets/images/sirin_sky_droneshow_1787143463022.jpg',
+    url: APP_IMAGES.skyDroneShow,
     category: 'DRONE',
     description: 'Synchronized 3D light swarm formation illuminating the night sky.',
   },
   {
     id: 'preset-3',
     name: 'Certified Cinema & Drone Crew',
-    url: '/src/assets/images/sirin_film_crew_1787143479237.jpg',
+    url: APP_IMAGES.filmCrew,
     category: 'CINEMATIC',
     description: 'Professional cinema camera rig and certified drone pilots on set.',
   },
   {
     id: 'preset-4',
     name: '360° Infinite Orbit Video Booth',
-    url: '/src/assets/images/sirin_photobooth_360_1787143500363.jpg',
+    url: APP_IMAGES.photoBooth,
     category: 'EVENTS',
     description: 'High-speed 120fps slow-motion interactive video platform for luxury events.',
   },
   {
     id: 'preset-5',
     name: 'Official SIRIN VISUALS Master Poster',
-    url: '/src/assets/images/sirin_official_poster_1787144399628.jpg',
+    url: APP_IMAGES.officialPoster,
     category: 'CINEMATIC',
     description: 'Signature brand artwork featuring the 8K drone rig and cinema lens flare.',
   },
   {
     id: 'preset-6',
     name: 'Geometric Brand Emblem',
-    url: '/src/assets/images/sirin_logo_badge_1787144422268.jpg',
+    url: APP_IMAGES.logoBadge,
     category: 'PRODUCT',
     description: 'Precision isometric geometric brand identity badge in deep imperial purple.',
   },

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { PortfolioItem } from '../types';
+import { resolveImageUrl } from '../data/assets';
 import { X, MapPin, Building, Tag, Sparkles, ArrowRight } from 'lucide-react';
 
 interface PortfolioModalProps {
@@ -42,7 +43,7 @@ export const PortfolioModal: React.FC<PortfolioModalProps> = ({
             type="button"
             id="close-portfolio-lightbox"
             onClick={onClose}
-            className="p-1.5 text-purple-300 hover:text-white hover:bg-purple-900/50 rounded-full transition-colors"
+            className="p-1.5 text-purple-300 hover:text-white hover:bg-purple-900/50 rounded-full transition-colors cursor-pointer"
             aria-label="Close lightbox"
           >
             <X className="w-6 h-6" />
@@ -56,7 +57,7 @@ export const PortfolioModal: React.FC<PortfolioModalProps> = ({
             <div className="relative w-full h-full min-h-[350px] select-none">
               {/* After Image (Full) */}
               <img
-                src={item.beforeAfter.after}
+                src={resolveImageUrl(item.beforeAfter.after)}
                 alt={item.beforeAfter.labelAfter}
                 className="absolute inset-0 w-full h-full object-cover"
                 referrerPolicy="no-referrer"
@@ -68,7 +69,7 @@ export const PortfolioModal: React.FC<PortfolioModalProps> = ({
                 style={{ width: `${sliderPosition}%` }}
               >
                 <img
-                  src={item.beforeAfter.before}
+                  src={resolveImageUrl(item.beforeAfter.before)}
                   alt={item.beforeAfter.labelBefore}
                   className="absolute inset-0 w-full h-full object-cover max-w-none"
                   style={{ width: '100%' }}
@@ -108,10 +109,13 @@ export const PortfolioModal: React.FC<PortfolioModalProps> = ({
           ) : (
             /* Standard Cinematic Image / Video View */
             <img
-              src={item.image}
+              src={resolveImageUrl(item.image)}
               alt={item.title}
               className="w-full h-full object-cover max-h-[500px]"
               referrerPolicy="no-referrer"
+              onError={(e) => {
+                (e.target as HTMLImageElement).src = resolveImageUrl(null);
+              }}
             />
           )}
         </div>
@@ -138,7 +142,7 @@ export const PortfolioModal: React.FC<PortfolioModalProps> = ({
               {item.tags.map((tag, idx) => (
                 <span
                   key={idx}
-                  className="px-2 py-0.5 rounded bg-purple-950/80 border border-purple-700/40 text-[11px] text-purple-300 font-mono"
+                  className="px-2 py-0.5 rounded text-[10px] font-mono bg-purple-950 text-purple-300 border border-purple-800/40"
                 >
                   #{tag}
                 </span>
@@ -146,30 +150,22 @@ export const PortfolioModal: React.FC<PortfolioModalProps> = ({
             </div>
           </div>
 
-          <p className="text-sm text-purple-100/90 leading-relaxed">
+          <p className="text-xs sm:text-sm text-purple-100/90 leading-relaxed">
             {item.description}
           </p>
 
-          <div className="pt-2 flex items-center justify-end gap-3">
-            <button
-              type="button"
-              onClick={onClose}
-              className="px-4 py-2 text-xs font-semibold text-purple-300 hover:text-white"
-            >
-              Close
-            </button>
+          <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div className="text-[11px] text-purple-400">
+              Need a similar production for your brand or event?
+            </div>
 
             <button
               type="button"
-              id="portfolio-book-similar-btn"
-              onClick={() => {
-                onClose();
-                onEnquireSimilar(item.title);
-              }}
-              className="inline-flex items-center gap-2 px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-white bg-gradient-to-r from-purple-600 to-violet-500 hover:from-purple-500 hover:to-violet-400 rounded-xl shadow-md transition-all duration-200"
+              id="enquire-project-btn"
+              onClick={() => onEnquireSimilar(item.title)}
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold uppercase tracking-wider transition-colors shadow-md cursor-pointer"
             >
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>Enquire Similar Production</span>
+              <span>Enquire About This Setup</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </button>
           </div>

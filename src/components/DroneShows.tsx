@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { droneShowTiers, droneShowAddOns } from '../data/sirinData';
 import { DroneShowTier } from '../types';
+import { APP_IMAGES } from '../data/assets';
 import {
   Sparkles,
   ArrowRight,
@@ -90,7 +91,7 @@ export const DroneShows: React.FC<DroneShowsProps> = ({ onPlanDroneShow }) => {
             {/* Visual Image */}
             <div className="lg:col-span-7 relative h-72 sm:h-96 overflow-hidden">
               <img
-                src="/src/assets/images/sirin_sky_droneshow_1787143463022.jpg"
+                src={APP_IMAGES.skyDroneShow}
                 alt="SIRIN SKY Spectacular Synchronized Drone Show Formations"
                 className="w-full h-full object-cover"
                 referrerPolicy="no-referrer"

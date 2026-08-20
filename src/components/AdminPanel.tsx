@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { useSirin } from '../context/SirinContext';
 import { PortfolioItem } from '../types';
+import { APP_IMAGES, resolveImageUrl } from '../data/assets';
 import {
   PRESET_STUDIO_GALLERY,
   processGalleryImageUpload,
@@ -81,7 +82,7 @@ export const AdminPanel: React.FC = () => {
       id: `port-custom-${Date.now()}`,
       title: 'New Visual Production',
       category: 'CINEMATIC',
-      image: '/src/assets/images/sirin_hero_cinematic_1787143442924.jpg',
+      image: APP_IMAGES.heroCinematic,
       aspectRatio: 'landscape',
       client: 'Luxury Brand / Client',
       location: 'Global / Studio',
@@ -370,13 +371,12 @@ export const AdminPanel: React.FC = () => {
                         {/* Interactive Image Box with Gallery Upload Button */}
                         <div className="w-20 h-20 rounded-lg overflow-hidden bg-gray-100 flex-shrink-0 border border-purple-200 relative group/img shadow-2xs">
                           <img
-                            src={item.image}
+                            src={resolveImageUrl(item.image)}
                             alt={item.title}
                             className="w-full h-full object-cover"
                             referrerPolicy="no-referrer"
                             onError={(e) => {
-                              (e.target as HTMLImageElement).src =
-                                '/src/assets/images/sirin_hero_cinematic_1787143442924.jpg';
+                              (e.target as HTMLImageElement).src = resolveImageUrl(null);
                             }}
                           />
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import { SirinLogo } from './SirinLogo';
 import { useSirin } from '../context/SirinContext';
+import { APP_IMAGES } from '../data/assets';
 import { ArrowRight, Play, Sparkles } from 'lucide-react';
 
 interface HeroProps {
@@ -77,7 +78,7 @@ export const Hero: React.FC<HeroProps> = ({
           <div className="lg:col-span-5 relative">
             <div className="relative rounded-2xl overflow-hidden shadow-xl border border-purple-100 bg-white group">
               <img
-                src="/src/assets/images/sirin_official_poster_1787144399628.jpg"
+                src={APP_IMAGES.officialPoster}
                 alt="Official SIRIN VISUALS Production"
                 className="w-full h-[360px] sm:h-[420px] object-cover group-hover:scale-102 transition-transform duration-500"
                 referrerPolicy="no-referrer"

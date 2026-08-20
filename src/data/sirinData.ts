@@ -7,6 +7,7 @@ import {
   ServiceItem,
   TestimonialItem,
 } from '../types';
+import { APP_IMAGES } from './assets';
 
 // Centralized company configuration for easy editing
 export const companyConfig: CompanyConfig = {
@@ -445,7 +446,7 @@ export const portfolioItems: PortfolioItem[] = [
     id: 'port-1',
     title: 'Skyline Symphony Drone Show',
     category: 'DRONE',
-    image: '/src/assets/images/sirin_sky_droneshow_1787143463022.jpg',
+    image: APP_IMAGES.skyDroneShow,
     aspectRatio: 'landscape',
     client: 'National Tech Summit',
     location: 'Mumbai Arena',
@@ -457,7 +458,7 @@ export const portfolioItems: PortfolioItem[] = [
     id: 'port-2',
     title: 'The Royal Heritage Wedding Film',
     category: 'CINEMATIC',
-    image: '/src/assets/images/sirin_hero_cinematic_1787143442924.jpg',
+    image: APP_IMAGES.heroCinematic,
     aspectRatio: 'landscape',
     client: 'Destination Wedding',
     location: 'Udaipur, Rajasthan',
@@ -469,7 +470,7 @@ export const portfolioItems: PortfolioItem[] = [
     id: 'port-3',
     title: 'Behind the Scenes: Commercial Set',
     category: 'VIDEOGRAPHY',
-    image: '/src/assets/images/sirin_film_crew_1787143479237.jpg',
+    image: APP_IMAGES.filmCrew,
     aspectRatio: 'landscape',
     client: 'Automotive Brand',
     location: 'Film City Studio',
@@ -481,7 +482,7 @@ export const portfolioItems: PortfolioItem[] = [
     id: 'port-4',
     title: 'Luxury Gala 360 Video Booth',
     category: 'EVENTS',
-    image: '/src/assets/images/sirin_photobooth_360_1787143500363.jpg',
+    image: APP_IMAGES.photoBooth,
     aspectRatio: 'square',
     client: 'Fashion Awards 2026',
     location: 'Grand Hyatt',

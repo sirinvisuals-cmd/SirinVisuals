@@ -1,6 +1,7 @@
 import React from 'react';
 import { X, Sparkles, Film, ArrowRight } from 'lucide-react';
 import { SirinLogo } from './SirinLogo';
+import { APP_IMAGES } from '../data/assets';
 
 interface ShowreelModalProps {
   isOpen: boolean;
@@ -38,7 +39,7 @@ export const ShowreelModal: React.FC<ShowreelModalProps> = ({
             type="button"
             id="close-showreel-modal"
             onClick={onClose}
-            className="p-1 text-purple-300 hover:text-white hover:bg-purple-900/50 rounded-full"
+            className="p-1 text-purple-300 hover:text-white hover:bg-purple-900/50 rounded-full cursor-pointer"
             aria-label="Close modal"
           >
             <X className="w-6 h-6" />
@@ -48,7 +49,7 @@ export const ShowreelModal: React.FC<ShowreelModalProps> = ({
         {/* Video Canvas Container */}
         <div className="relative aspect-video bg-black flex items-center justify-center overflow-hidden group">
           <img
-            src="/src/assets/images/sirin_hero_cinematic_1787143442924.jpg"
+            src={APP_IMAGES.heroCinematic}
             alt="SIRIN VISUALS 4K Showreel"
             className="w-full h-full object-cover opacity-85"
             referrerPolicy="no-referrer"
@@ -80,28 +81,17 @@ export const ShowreelModal: React.FC<ShowreelModalProps> = ({
             Production credits: SIRIN VISUALS Team • Global Shoots
           </div>
 
-          <div className="flex items-center gap-3">
-            <button
-              type="button"
-              onClick={onClose}
-              className="px-4 py-2 text-xs font-semibold text-purple-300 hover:text-white"
-            >
-              Close
-            </button>
-
-            <button
-              type="button"
-              onClick={() => {
-                onClose();
-                onBookClick();
-              }}
-              className="inline-flex items-center gap-2 px-5 py-2 text-xs font-bold font-tech uppercase tracking-wider text-white bg-gradient-to-r from-purple-600 to-violet-500 hover:from-purple-500 rounded-xl shadow-md"
-            >
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>Book This Level of Production</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </button>
-          </div>
+          <button
+            type="button"
+            onClick={() => {
+              onClose();
+              onBookClick();
+            }}
+            className="inline-flex items-center gap-1.5 px-5 py-2 rounded-full bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold uppercase tracking-wider transition-colors shadow-md cursor-pointer"
+          >
+            <span>Book A Project</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </button>
         </div>
       </div>
     </div>

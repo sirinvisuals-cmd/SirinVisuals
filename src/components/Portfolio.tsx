@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useSirin } from '../context/SirinContext';
 import { PortfolioItem } from '../types';
 import { PortfolioModal } from './PortfolioModal';
+import { resolveImageUrl } from '../data/assets';
 import { Sparkles, Eye, ArrowUpRight, SlidersHorizontal } from 'lucide-react';
 
 interface PortfolioProps {
@@ -48,35 +49,32 @@ export const Portfolio: React.FC<PortfolioProps> = ({ onBookProject }) => {
             <span>{t('portfolio_badge')}</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#20083B] tracking-tight font-display uppercase">
+          <h2 className="text-2xl sm:text-4xl font-extrabold text-[#190730] tracking-tight font-display">
             {displayHeading}
           </h2>
 
-          <p className="text-base sm:text-lg text-[#473B5D]">
+          <p className="text-xs sm:text-sm text-[#5C4F75] max-w-2xl mx-auto leading-relaxed">
             {displaySubheading}
           </p>
         </div>
 
-        {/* Filter Categories Bar */}
-        <div className="flex items-center justify-start sm:justify-center overflow-x-auto pb-4 mb-10 gap-2 no-scrollbar">
-          {categories.map((cat) => {
-            const isActive = activeCategory === cat.id;
-            return (
-              <button
-                key={cat.id}
-                type="button"
-                id={`filter-${cat.id.toLowerCase().replace(' ', '-')}`}
-                onClick={() => setActiveCategory(cat.id)}
-                className={`flex-shrink-0 px-4 py-2 text-xs font-bold font-tech uppercase tracking-wider rounded-xl transition-all duration-200 cursor-pointer ${
-                  isActive
-                    ? 'bg-[#2E0854] text-white shadow-md shadow-purple-900/20'
-                    : 'bg-[#F6F4FB] text-[#4A3C63] hover:bg-purple-100 hover:text-purple-900 border border-purple-100/80'
-                }`}
-              >
-                {cat.label}
-              </button>
-            );
-          })}
+        {/* Categories Bar */}
+        <div className="flex items-center justify-start sm:justify-center gap-2 overflow-x-auto pb-4 mb-8 custom-scrollbar">
+          {categories.map((cat) => (
+            <button
+              key={cat.id}
+              type="button"
+              id={`portfolio-tab-${cat.id}`}
+              onClick={() => setActiveCategory(cat.id)}
+              className={`px-4 py-2 rounded-full text-xs font-bold font-tech tracking-wider uppercase transition-all duration-200 cursor-pointer whitespace-nowrap ${
+                activeCategory === cat.id
+                  ? 'bg-purple-900 text-white shadow-xs'
+                  : 'bg-purple-50/70 text-[#493963] hover:bg-purple-100 hover:text-purple-950 border border-purple-100'
+              }`}
+            >
+              {cat.label}
+            </button>
+          ))}
         </div>
 
         {/* Dynamic Responsive Masonry/Grid */}
@@ -90,11 +88,14 @@ export const Portfolio: React.FC<PortfolioProps> = ({ onBookProject }) => {
             >
               {/* Media Thumbnail */}
               <img
-                src={item.image}
+                src={resolveImageUrl(item.image)}
                 alt={item.title}
                 className="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out"
                 referrerPolicy="no-referrer"
                 loading="lazy"
+                onError={(e) => {
+                  (e.target as HTMLImageElement).src = resolveImageUrl(null);
+                }}
               />
 
               {/* Dark/Purple Gradient Vignette */}
@@ -158,10 +159,9 @@ export const Portfolio: React.FC<PortfolioProps> = ({ onBookProject }) => {
         <PortfolioModal
           item={activeItem}
           onClose={() => setActiveItem(null)}
-          onBookSimilar={() => {
-            const projectTitle = activeItem.title;
+          onEnquireSimilar={(title) => {
             setActiveItem(null);
-            onBookProject(projectTitle);
+            onBookProject(`Inquiry for Project: ${title}`);
           }}
         />
       )}
