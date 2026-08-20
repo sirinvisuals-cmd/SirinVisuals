@@ -27,6 +27,8 @@ export const companyConfig: CompanyConfig = {
   facebookUrl: 'https://facebook.com/SirinVisuals',
   whatsappNumber: '911234567890',
   defaultWhatsAppMessage: 'Hi SIRIN VISUALS, I would like to enquire about a visual production project.',
+  floatingButtonAction: 'whatsapp',
+  floatingButtonLabel: 'Direct Connect',
   address: 'Global Operations & Studio',
   coverage: 'Global Service',
 };

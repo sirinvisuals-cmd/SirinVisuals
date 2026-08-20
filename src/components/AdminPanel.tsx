@@ -31,6 +31,7 @@ import {
   Layers,
   ArrowUpRight,
   RefreshCw,
+  MessageCircle,
 } from 'lucide-react';
 
 export const AdminPanel: React.FC = () => {
@@ -241,7 +242,7 @@ export const AdminPanel: React.FC = () => {
         <div className="px-6 py-2.5 bg-purple-50/70 border-b border-purple-100 flex items-center gap-2 overflow-x-auto text-xs font-bold">
           {[
             { id: 'stories', label: 'Our Visual Stories (Portfolio & Gallery)', icon: Film },
-            { id: 'contact', label: 'Contact, Phone & Socials', icon: Phone },
+            { id: 'contact', label: 'Contact, Phone & Green Corner Button', icon: Phone },
             { id: 'packages', label: '7 Production Packages', icon: Tag },
             { id: 'drones', label: '6 Drone Show Tiers', icon: Plane },
             { id: 'services', label: '8 Core Services', icon: Sparkles },
@@ -568,10 +569,138 @@ export const AdminPanel: React.FC = () => {
           {/* TAB 1: Contact, Phone & Socials */}
           {activeTab === 'contact' && (
             <div className="space-y-6 max-w-3xl">
+              {/* SPECIAL SECTION: Floating Green Dot Corner Button Redirection */}
+              <div className="p-5 rounded-2xl bg-gradient-to-br from-emerald-950 via-[#0d2818] to-[#121c16] text-white border-2 border-emerald-500/40 shadow-lg space-y-4">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-emerald-800/60 pb-3">
+                  <div className="flex items-center gap-2.5">
+                    <div className="relative flex h-4 w-4">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-4 w-4 bg-emerald-500 border border-white"></span>
+                    </div>
+                    <div>
+                      <h3 className="text-sm font-extrabold text-white uppercase tracking-wider font-tech flex items-center gap-1.5">
+                        <span>Floating Green Corner Button Redirection</span>
+                      </h3>
+                      <p className="text-[11px] text-emerald-300/90 font-normal">
+                        Control the exact phone number and action triggered when visitors click the green corner button.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Live Test Trigger */}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const cleanNumber = (companyConfig.whatsappNumber || companyConfig.phoneRaw || '').replace(/[^0-9]/g, '');
+                      if (companyConfig.floatingButtonAction === 'call') {
+                        const dial = companyConfig.phoneRaw || companyConfig.phone || cleanNumber;
+                        window.location.href = `tel:${dial.replace(/\s+/g, '')}`;
+                      } else {
+                        const encodedMsg = encodeURIComponent(
+                          companyConfig.defaultWhatsAppMessage || 'Hi SIRIN VISUALS, I would like to enquire about a visual production project.'
+                        );
+                        window.open(`https://wa.me/${cleanNumber}?text=${encodedMsg}`, '_blank');
+                      }
+                    }}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-black text-xs font-bold transition-all shadow-md cursor-pointer self-start sm:self-auto"
+                  >
+                    <ArrowUpRight className="w-3.5 h-3.5" />
+                    <span>Test Redirection</span>
+                  </button>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                  {/* Redirection Number */}
+                  <div className="space-y-1 sm:col-span-2">
+                    <label className="block font-bold text-emerald-200">
+                      Redirection Phone / WhatsApp Number (with Country Code)
+                    </label>
+                    <div className="relative">
+                      <input
+                        type="text"
+                        value={companyConfig.whatsappNumber}
+                        onChange={(e) => {
+                          const val = e.target.value;
+                          setCompanyConfig((prev) => ({
+                            ...prev,
+                            whatsappNumber: val,
+                            // Sync raw phone if appropriate
+                            phoneRaw: val.replace(/[^0-9]/g, ''),
+                          }));
+                        }}
+                        placeholder="e.g. 919876543210 (India) or 15551234567 (US)"
+                        className="w-full px-3.5 py-2.5 rounded-xl bg-black/50 border border-emerald-500/50 text-white font-mono text-sm focus:border-emerald-400 focus:outline-none placeholder-emerald-700/50"
+                      />
+                    </div>
+                    <p className="text-[10px] text-emerald-400/80">
+                      Format: Digits with country code (e.g., 91 for India, 1 for USA/Canada). Do not include + or hyphens in raw redirects.
+                    </p>
+                  </div>
+
+                  {/* Redirection Action Toggle */}
+                  <div className="space-y-1">
+                    <label className="block font-bold text-emerald-200">
+                      Click Action Mode
+                    </label>
+                    <div className="grid grid-cols-2 gap-2">
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setCompanyConfig((prev) => ({ ...prev, floatingButtonAction: 'whatsapp' }))
+                        }
+                        className={`py-2 px-3 rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 border transition-all cursor-pointer ${
+                          companyConfig.floatingButtonAction !== 'call'
+                            ? 'bg-emerald-500 text-black border-emerald-400 shadow-xs'
+                            : 'bg-black/40 text-emerald-300 border-emerald-800/60 hover:bg-black/60'
+                        }`}
+                      >
+                        <MessageCircle className="w-3.5 h-3.5" />
+                        <span>WhatsApp Chat</span>
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setCompanyConfig((prev) => ({ ...prev, floatingButtonAction: 'call' }))
+                        }
+                        className={`py-2 px-3 rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 border transition-all cursor-pointer ${
+                          companyConfig.floatingButtonAction === 'call'
+                            ? 'bg-emerald-500 text-black border-emerald-400 shadow-xs'
+                            : 'bg-black/40 text-emerald-300 border-emerald-800/60 hover:bg-black/60'
+                        }`}
+                      >
+                        <Phone className="w-3.5 h-3.5" />
+                        <span>Direct Call / Phone</span>
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Default message */}
+                  <div className="space-y-1">
+                    <label className="block font-bold text-emerald-200">
+                      Pre-filled WhatsApp Message (if WhatsApp mode)
+                    </label>
+                    <input
+                      type="text"
+                      value={companyConfig.defaultWhatsAppMessage}
+                      onChange={(e) =>
+                        setCompanyConfig((prev) => ({
+                          ...prev,
+                          defaultWhatsAppMessage: e.target.value,
+                        }))
+                      }
+                      placeholder="Hi SIRIN VISUALS, I'd like to enquire about a project..."
+                      className="w-full px-3 py-2 rounded-lg bg-black/50 border border-emerald-500/40 text-white text-xs focus:border-emerald-400 focus:outline-none"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Standard Phone & WhatsApp details */}
               <div className="p-4 rounded-xl bg-white border border-gray-200 shadow-xs space-y-4">
                 <h3 className="text-sm font-bold text-purple-950 uppercase tracking-wider font-tech flex items-center gap-2">
                   <Phone className="w-4 h-4 text-purple-700" />
-                  <span>Phone & WhatsApp Configuration</span>
+                  <span>Website Contact Details</span>
                 </h3>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">

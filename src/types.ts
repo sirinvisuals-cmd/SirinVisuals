@@ -112,6 +112,8 @@ export interface CompanyConfig {
   facebookUrl: string;
   whatsappNumber: string;
   defaultWhatsAppMessage: string;
+  floatingButtonAction?: 'whatsapp' | 'call';
+  floatingButtonLabel?: string;
   address: string;
   coverage: string;
 }
